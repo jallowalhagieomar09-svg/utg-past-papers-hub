@@ -123,7 +123,7 @@ function Home() {
       </section>
 
       {/* STATS */}
-      <section className="container mx-auto -mt-10 max-w-5xl px-4">
+      <section className="container mx-auto mt-12 max-w-5xl px-4">
         <div className="grid grid-cols-3 gap-3 rounded-2xl border border-border bg-card p-4 shadow-card md:gap-6 md:p-6">
           <Stat label="Past Papers" value={stats.papers.toLocaleString() + "+"} />
           <Stat label="Faculties" value={stats.faculties.toString()} />

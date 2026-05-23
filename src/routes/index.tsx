@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { FACULTIES, PAPERS } from "@/lib/papers-data";
 import { FacultyCard } from "@/components/faculty-card";
 import { PaperCard } from "@/components/paper-card";
+import campusBg from "@/assets/utg-campus.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({

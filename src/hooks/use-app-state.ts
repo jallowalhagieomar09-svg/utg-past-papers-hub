@@ -2,27 +2,25 @@ import { useEffect, useState } from "react";
 
 const KEY = "utg-theme";
 
+function currentTheme(): "light" | "dark" {
+  if (typeof document === "undefined") return "light";
+  return document.documentElement.classList.contains("dark") ? "dark" : "light";
+}
+
 export function useTheme() {
   const [theme, setTheme] = useState<"light" | "dark">("light");
 
   useEffect(() => {
-    const stored = (typeof window !== "undefined" && localStorage.getItem(KEY)) as
-      | "light"
-      | "dark"
-      | null;
-    const prefersDark =
-      typeof window !== "undefined" &&
-      window.matchMedia?.("(prefers-color-scheme: dark)").matches;
-    const initial = stored ?? (prefersDark ? "dark" : "light");
-    setTheme(initial);
-    document.documentElement.classList.toggle("dark", initial === "dark");
+    setTheme(currentTheme());
   }, []);
 
   const toggle = () => {
-    const next = theme === "dark" ? "light" : "dark";
-    setTheme(next);
+    const next = currentTheme() === "dark" ? "light" : "dark";
     document.documentElement.classList.toggle("dark", next === "dark");
-    localStorage.setItem(KEY, next);
+    try {
+      localStorage.setItem(KEY, next);
+    } catch {}
+    setTheme(next);
   };
 
   return { theme, toggle };
@@ -42,7 +40,9 @@ export function useBookmarks() {
 
   const save = (next: string[]) => {
     setIds(next);
-    localStorage.setItem(BM_KEY, JSON.stringify(next));
+    try {
+      localStorage.setItem(BM_KEY, JSON.stringify(next));
+    } catch {}
   };
 
   const toggle = (id: string) => {

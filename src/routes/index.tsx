@@ -1,7 +1,10 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { Search, Upload, MessageSquare, Sparkles, TrendingUp, Clock, ArrowRight } from "lucide-react";
 import { useMemo, useState } from "react";
-import { FACULTIES, PAPERS } from "@/lib/papers-data";
+import { useQuery } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
+import { FACULTIES } from "@/lib/papers-data";
+import { listPapers } from "@/lib/papers.functions";
 import { FacultyCard } from "@/components/faculty-card";
 import { PaperCard } from "@/components/paper-card";
 import campusBg from "@/assets/utg-campus.jpg";
@@ -19,31 +22,35 @@ export const Route = createFileRoute("/")({
 function Home() {
   const navigate = useNavigate();
   const [q, setQ] = useState("");
+  const fetchPapers = useServerFn(listPapers);
+  const { data } = useQuery({ queryKey: ["papers"], queryFn: () => fetchPapers() });
+  const papers = data?.papers ?? [];
 
   const suggestions = useMemo(() => {
     if (q.trim().length < 2) return [];
     const s = q.toLowerCase();
-    return PAPERS.filter(
+    return papers.filter(
       (p) =>
         p.code.toLowerCase().includes(s) ||
         p.title.toLowerCase().includes(s) ||
         p.department.toLowerCase().includes(s),
     ).slice(0, 5);
-  }, [q]);
+  }, [q, papers]);
 
-  const recent = [...PAPERS].sort((a, b) => +new Date(b.addedAt) - +new Date(a.addedAt)).slice(0, 4);
-  const popular = [...PAPERS].sort((a, b) => b.downloads - a.downloads).slice(0, 4);
+  const recent = [...papers].sort((a, b) => +new Date(b.addedAt) - +new Date(a.addedAt)).slice(0, 4);
+  const popular = [...papers].sort((a, b) => b.downloads - a.downloads).slice(0, 4);
 
   const stats = {
-    papers: PAPERS.length,
+    papers: papers.length,
     faculties: FACULTIES.length,
-    downloads: PAPERS.reduce((a, p) => a + p.downloads, 0),
+    downloads: papers.reduce((a, p) => a + p.downloads, 0),
   };
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
     navigate({ to: "/papers", search: { q } });
   };
+
 
   return (
     <>

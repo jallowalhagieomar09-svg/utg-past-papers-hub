@@ -45,6 +45,12 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-2">
+          <Link
+            to={user && isAdmin ? "/admin" : "/login"}
+            className="hidden items-center gap-1.5 rounded-md border border-border bg-background px-3 py-2 text-xs font-medium text-foreground hover:bg-accent sm:inline-flex"
+          >
+            <Shield className="h-3.5 w-3.5" /> {user && isAdmin ? "Admin" : "Sign in"}
+          </Link>
           <button
             onClick={toggle}
             aria-label="Toggle theme"

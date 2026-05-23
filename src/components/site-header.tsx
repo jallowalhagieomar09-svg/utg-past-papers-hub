@@ -1,7 +1,8 @@
 import { Link } from "@tanstack/react-router";
-import { Moon, Sun, Menu, X } from "lucide-react";
+import { Moon, Sun, Menu, X, Shield } from "lucide-react";
 import { useState } from "react";
 import { useTheme } from "@/hooks/use-app-state";
+import { useAuth } from "@/hooks/use-auth";
 import logo from "@/assets/utg-logo.jpg";
 
 const NAV = [

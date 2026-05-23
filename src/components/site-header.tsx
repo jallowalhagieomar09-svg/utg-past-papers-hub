@@ -15,6 +15,7 @@ const NAV = [
 
 export function SiteHeader() {
   const { theme, toggle } = useTheme();
+  const { user, isAdmin } = useAuth();
   const [open, setOpen] = useState(false);
 
   return (

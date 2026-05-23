@@ -14,6 +14,7 @@ import { Route as TipsRouteImport } from './routes/tips'
 import { Route as RequestRouteImport } from './routes/request'
 import { Route as PapersRouteImport } from './routes/papers'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ApiPublicPaperImageFileIdRouteImport } from './routes/api/public/paper-image.$fileId'
 
 const UploadRoute = UploadRouteImport.update({
   id: '/upload',
@@ -40,6 +41,12 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicPaperImageFileIdRoute =
+  ApiPublicPaperImageFileIdRouteImport.update({
+    id: '/api/public/paper-image/$fileId',
+    path: '/api/public/paper-image/$fileId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -47,6 +54,7 @@ export interface FileRoutesByFullPath {
   '/request': typeof RequestRoute
   '/tips': typeof TipsRoute
   '/upload': typeof UploadRoute
+  '/api/public/paper-image/$fileId': typeof ApiPublicPaperImageFileIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -54,6 +62,7 @@ export interface FileRoutesByTo {
   '/request': typeof RequestRoute
   '/tips': typeof TipsRoute
   '/upload': typeof UploadRoute
+  '/api/public/paper-image/$fileId': typeof ApiPublicPaperImageFileIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -62,13 +71,33 @@ export interface FileRoutesById {
   '/request': typeof RequestRoute
   '/tips': typeof TipsRoute
   '/upload': typeof UploadRoute
+  '/api/public/paper-image/$fileId': typeof ApiPublicPaperImageFileIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/papers' | '/request' | '/tips' | '/upload'
+  fullPaths:
+    | '/'
+    | '/papers'
+    | '/request'
+    | '/tips'
+    | '/upload'
+    | '/api/public/paper-image/$fileId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/papers' | '/request' | '/tips' | '/upload'
-  id: '__root__' | '/' | '/papers' | '/request' | '/tips' | '/upload'
+  to:
+    | '/'
+    | '/papers'
+    | '/request'
+    | '/tips'
+    | '/upload'
+    | '/api/public/paper-image/$fileId'
+  id:
+    | '__root__'
+    | '/'
+    | '/papers'
+    | '/request'
+    | '/tips'
+    | '/upload'
+    | '/api/public/paper-image/$fileId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -77,6 +106,7 @@ export interface RootRouteChildren {
   RequestRoute: typeof RequestRoute
   TipsRoute: typeof TipsRoute
   UploadRoute: typeof UploadRoute
+  ApiPublicPaperImageFileIdRoute: typeof ApiPublicPaperImageFileIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -116,6 +146,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/paper-image/$fileId': {
+      id: '/api/public/paper-image/$fileId'
+      path: '/api/public/paper-image/$fileId'
+      fullPath: '/api/public/paper-image/$fileId'
+      preLoaderRoute: typeof ApiPublicPaperImageFileIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -125,6 +162,7 @@ const rootRouteChildren: RootRouteChildren = {
   RequestRoute: RequestRoute,
   TipsRoute: TipsRoute,
   UploadRoute: UploadRoute,
+  ApiPublicPaperImageFileIdRoute: ApiPublicPaperImageFileIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

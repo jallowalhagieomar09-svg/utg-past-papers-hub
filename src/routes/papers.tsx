@@ -1,9 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
 import { Search, SlidersHorizontal, X } from "lucide-react";
 import { useMemo, useState } from "react";
 import { z } from "zod";
 import { PaperCard } from "@/components/paper-card";
-import { FACULTIES, PAPERS, SEMESTERS, YEARS } from "@/lib/papers-data";
+import { FACULTIES, SEMESTERS, YEARS } from "@/lib/papers-data";
+import { listPapers } from "@/lib/papers.functions";
 
 const searchSchema = z.object({
   q: z.string().optional(),
@@ -31,13 +34,20 @@ function PapersPage() {
   const semester = initial.semester;
   const year = initial.year;
 
+  const fetchPapers = useServerFn(listPapers);
+  const { data, isLoading } = useQuery({
+    queryKey: ["papers"],
+    queryFn: () => fetchPapers(),
+  });
+  const papers = data?.papers ?? [];
+
   const setFilter = (key: string, value: string | number | undefined) => {
     navigate({ search: (prev: Record<string, unknown>) => ({ ...prev, [key]: value || undefined }) });
   };
 
   const filtered = useMemo(() => {
     const term = q.trim().toLowerCase();
-    return PAPERS.filter((p) => {
+    return papers.filter((p) => {
       if (faculty && p.faculty !== faculty) return false;
       if (semester && p.semester !== semester) return false;
       if (year && p.year !== Number(year)) return false;
@@ -50,7 +60,7 @@ function PapersPage() {
         return false;
       return true;
     });
-  }, [q, faculty, semester, year]);
+  }, [q, faculty, semester, year, papers]);
 
   const activeCount = [faculty, semester, year].filter(Boolean).length;
 
@@ -95,7 +105,11 @@ function PapersPage() {
         <span><SlidersHorizontal className="mr-1.5 inline h-3.5 w-3.5" /> {filtered.length} result{filtered.length === 1 ? "" : "s"}</span>
       </div>
 
-      {filtered.length === 0 ? (
+      {isLoading ? (
+        <div className="rounded-xl border border-dashed border-border bg-card p-10 text-center text-sm text-muted-foreground">
+          Loading papers…
+        </div>
+      ) : filtered.length === 0 ? (
         <div className="rounded-xl border border-dashed border-border bg-card p-10 text-center">
           <p className="font-serif text-xl">No papers match your filters.</p>
           <p className="mt-2 text-sm text-muted-foreground">Try clearing filters or request the paper you need.</p>

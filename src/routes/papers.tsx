@@ -34,13 +34,20 @@ function PapersPage() {
   const semester = initial.semester;
   const year = initial.year;
 
+  const fetchPapers = useServerFn(listPapers);
+  const { data, isLoading } = useQuery({
+    queryKey: ["papers"],
+    queryFn: () => fetchPapers(),
+  });
+  const papers = data?.papers ?? [];
+
   const setFilter = (key: string, value: string | number | undefined) => {
     navigate({ search: (prev: Record<string, unknown>) => ({ ...prev, [key]: value || undefined }) });
   };
 
   const filtered = useMemo(() => {
     const term = q.trim().toLowerCase();
-    return PAPERS.filter((p) => {
+    return papers.filter((p) => {
       if (faculty && p.faculty !== faculty) return false;
       if (semester && p.semester !== semester) return false;
       if (year && p.year !== Number(year)) return false;
@@ -53,7 +60,7 @@ function PapersPage() {
         return false;
       return true;
     });
-  }, [q, faculty, semester, year]);
+  }, [q, faculty, semester, year, papers]);
 
   const activeCount = [faculty, semester, year].filter(Boolean).length;
 

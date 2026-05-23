@@ -49,7 +49,13 @@ function Home() {
     <>
       {/* HERO */}
       <section className="relative overflow-hidden bg-hero text-white">
-        <div className="absolute inset-0 -z-0 opacity-30 [background-image:radial-gradient(circle_at_1px_1px,white_1px,transparent_0)] [background-size:24px_24px]" />
+        <div
+          className="absolute inset-0 -z-0 bg-cover bg-center opacity-25"
+          style={{ backgroundImage: `url(${campusBg})` }}
+          aria-hidden
+        />
+        <div className="absolute inset-0 -z-0 bg-gradient-to-b from-[hsl(var(--hero-from)/0.85)] via-[hsl(var(--hero-via)/0.8)] to-[hsl(var(--hero-to)/0.9)]" aria-hidden />
+        <div className="absolute inset-0 -z-0 opacity-20 [background-image:radial-gradient(circle_at_1px_1px,white_1px,transparent_0)] [background-size:24px_24px]" />
         <div className="container relative mx-auto max-w-5xl px-4 py-20 text-center md:py-28">
           <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3 py-1 text-xs text-white backdrop-blur animate-fade-in">
             <Sparkles className="h-3.5 w-3.5" />

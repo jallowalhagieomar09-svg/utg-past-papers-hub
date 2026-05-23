@@ -105,7 +105,11 @@ function PapersPage() {
         <span><SlidersHorizontal className="mr-1.5 inline h-3.5 w-3.5" /> {filtered.length} result{filtered.length === 1 ? "" : "s"}</span>
       </div>
 
-      {filtered.length === 0 ? (
+      {isLoading ? (
+        <div className="rounded-xl border border-dashed border-border bg-card p-10 text-center text-sm text-muted-foreground">
+          Loading papers…
+        </div>
+      ) : filtered.length === 0 ? (
         <div className="rounded-xl border border-dashed border-border bg-card p-10 text-center">
           <p className="font-serif text-xl">No papers match your filters.</p>
           <p className="mt-2 text-sm text-muted-foreground">Try clearing filters or request the paper you need.</p>

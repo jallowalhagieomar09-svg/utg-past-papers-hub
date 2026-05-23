@@ -14,7 +14,123 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      drive_folders: {
+        Row: {
+          created_at: string
+          folder_id: string
+          id: string
+          label: string | null
+          last_synced_at: string | null
+        }
+        Insert: {
+          created_at?: string
+          folder_id: string
+          id?: string
+          label?: string | null
+          last_synced_at?: string | null
+        }
+        Update: {
+          created_at?: string
+          folder_id?: string
+          id?: string
+          label?: string | null
+          last_synced_at?: string | null
+        }
+        Relationships: []
+      }
+      paper_requests: {
+        Row: {
+          contact_email: string | null
+          course_code: string | null
+          created_at: string
+          faculty_slug: string | null
+          id: string
+          notes: string | null
+          semester: string | null
+          status: string
+          title: string
+          year: number | null
+        }
+        Insert: {
+          contact_email?: string | null
+          course_code?: string | null
+          created_at?: string
+          faculty_slug?: string | null
+          id?: string
+          notes?: string | null
+          semester?: string | null
+          status?: string
+          title: string
+          year?: number | null
+        }
+        Update: {
+          contact_email?: string | null
+          course_code?: string | null
+          created_at?: string
+          faculty_slug?: string | null
+          id?: string
+          notes?: string | null
+          semester?: string | null
+          status?: string
+          title?: string
+          year?: number | null
+        }
+        Relationships: []
+      }
+      papers: {
+        Row: {
+          added_at: string
+          course_code: string | null
+          department: string | null
+          download_link: string | null
+          downloads: number
+          drive_file_id: string
+          faculty_slug: string | null
+          id: string
+          mime_type: string | null
+          semester: string | null
+          size_bytes: number | null
+          title: string
+          updated_at: string
+          web_view_link: string | null
+          year: number | null
+        }
+        Insert: {
+          added_at?: string
+          course_code?: string | null
+          department?: string | null
+          download_link?: string | null
+          downloads?: number
+          drive_file_id: string
+          faculty_slug?: string | null
+          id?: string
+          mime_type?: string | null
+          semester?: string | null
+          size_bytes?: number | null
+          title: string
+          updated_at?: string
+          web_view_link?: string | null
+          year?: number | null
+        }
+        Update: {
+          added_at?: string
+          course_code?: string | null
+          department?: string | null
+          download_link?: string | null
+          downloads?: number
+          drive_file_id?: string
+          faculty_slug?: string | null
+          id?: string
+          mime_type?: string | null
+          semester?: string | null
+          size_bytes?: number | null
+          title?: string
+          updated_at?: string
+          web_view_link?: string | null
+          year?: number | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

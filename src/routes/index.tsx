@@ -47,14 +47,14 @@ function Home() {
   return (
     <>
       {/* HERO */}
-      <section className="relative overflow-hidden bg-hero text-primary-foreground">
+      <section className="relative overflow-hidden bg-hero text-white">
         <div className="absolute inset-0 -z-0 opacity-30 [background-image:radial-gradient(circle_at_1px_1px,white_1px,transparent_0)] [background-size:24px_24px]" />
         <div className="container relative mx-auto max-w-5xl px-4 py-20 text-center md:py-28">
-          <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs backdrop-blur animate-fade-in">
+          <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3 py-1 text-xs text-white backdrop-blur animate-fade-in">
             <Sparkles className="h-3.5 w-3.5" />
             <span>UTG Student Union · Academic Support</span>
           </div>
-          <h1 className="mx-auto mt-6 max-w-3xl font-serif text-4xl leading-[1.05] md:text-6xl animate-fade-up">
+          <h1 className="mx-auto mt-6 max-w-3xl font-serif text-4xl leading-[1.05] text-white md:text-6xl animate-fade-up">
             Access Past Papers <span className="italic text-[color:var(--gold)]">Easily</span>
           </h1>
           <p className="mx-auto mt-4 max-w-xl text-base text-white/95 md:text-lg animate-fade-up [animation-delay:80ms]">

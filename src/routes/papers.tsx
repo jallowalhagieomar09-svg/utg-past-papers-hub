@@ -1,9 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
 import { Search, SlidersHorizontal, X } from "lucide-react";
 import { useMemo, useState } from "react";
 import { z } from "zod";
 import { PaperCard } from "@/components/paper-card";
-import { FACULTIES, PAPERS, SEMESTERS, YEARS } from "@/lib/papers-data";
+import { FACULTIES, SEMESTERS, YEARS } from "@/lib/papers-data";
+import { listPapers } from "@/lib/papers.functions";
 
 const searchSchema = z.object({
   q: z.string().optional(),

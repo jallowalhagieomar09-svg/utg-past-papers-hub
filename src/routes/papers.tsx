@@ -32,7 +32,7 @@ function PapersPage() {
   const year = initial.year;
 
   const setFilter = (key: string, value: string | number | undefined) => {
-    navigate({ search: (prev) => ({ ...prev, [key]: value || undefined }) });
+    navigate({ search: (prev: Record<string, unknown>) => ({ ...prev, [key]: value || undefined }) });
   };
 
   const filtered = useMemo(() => {

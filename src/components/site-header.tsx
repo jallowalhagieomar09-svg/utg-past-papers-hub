@@ -1,7 +1,8 @@
 import { Link } from "@tanstack/react-router";
-import { Moon, Sun, GraduationCap, Menu, X } from "lucide-react";
+import { Moon, Sun, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { useTheme } from "@/hooks/use-app-state";
+import logo from "@/assets/utg-logo.jpg";
 
 const NAV = [
   { to: "/", label: "Home" },
@@ -18,9 +19,9 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur-md">
       <div className="container mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
-        <Link to="/" className="group flex items-center gap-2">
-          <span className="grid h-9 w-9 place-items-center rounded-lg bg-primary text-primary-foreground shadow-soft transition-transform group-hover:scale-105">
-            <GraduationCap className="h-5 w-5" />
+        <Link to="/" className="group flex items-center gap-2.5">
+          <span className="grid h-10 w-10 place-items-center overflow-hidden rounded-lg bg-white ring-1 ring-border shadow-soft transition-transform group-hover:scale-105">
+            <img src={logo} alt="UTG Student Union" className="h-9 w-9 object-contain" />
           </span>
           <div className="leading-tight">
             <div className="font-serif text-lg text-foreground">UTG Past Papers</div>

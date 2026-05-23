@@ -17,20 +17,28 @@ export type DbPaper = {
 export const listPapers = createServerFn({ method: "GET" }).handler(async () => {
   const { data, error } = await supabaseAdmin
     .from("papers")
-    .select("id,drive_file_id,title,course_code,faculty_slug,department,year,semester,downloads,added_at")
+    .select("id,drive_file_id,storage_path,title,course_code,faculty_slug,department,year,semester,downloads,added_at")
     .order("added_at", { ascending: false });
   if (error) throw new Error(error.message);
-  const papers: DbPaper[] = (data ?? []).map((p) => ({
-    id: p.id,
-    code: p.course_code ?? "—",
-    title: p.title,
-    faculty: p.faculty_slug ?? "",
-    department: p.department ?? "",
-    semester: (p.semester as DbPaper["semester"]) ?? "First",
-    year: p.year ?? 0,
-    downloads: p.downloads ?? 0,
-    addedAt: p.added_at,
-    fileUrl: `/api/public/paper-image/${p.drive_file_id}`,
-  }));
+  const papers: DbPaper[] = (data ?? []).map((p) => {
+    let fileUrl = "";
+    if (p.storage_path) {
+      fileUrl = supabaseAdmin.storage.from("papers").getPublicUrl(p.storage_path).data.publicUrl;
+    } else if (p.drive_file_id) {
+      fileUrl = `/api/public/paper-image/${p.drive_file_id}`;
+    }
+    return {
+      id: p.id,
+      code: p.course_code ?? "—",
+      title: p.title,
+      faculty: p.faculty_slug ?? "",
+      department: p.department ?? "",
+      semester: (p.semester as DbPaper["semester"]) ?? "First",
+      year: p.year ?? 0,
+      downloads: p.downloads ?? 0,
+      addedAt: p.added_at,
+      fileUrl,
+    };
+  });
   return { papers };
 });

@@ -1,7 +1,8 @@
 import { Link } from "@tanstack/react-router";
-import { Moon, Sun, Menu, X } from "lucide-react";
+import { Moon, Sun, Menu, X, Shield } from "lucide-react";
 import { useState } from "react";
 import { useTheme } from "@/hooks/use-app-state";
+import { useAuth } from "@/hooks/use-auth";
 import logo from "@/assets/utg-logo.jpg";
 
 const NAV = [
@@ -14,6 +15,7 @@ const NAV = [
 
 export function SiteHeader() {
   const { theme, toggle } = useTheme();
+  const { user, isAdmin } = useAuth();
   const [open, setOpen] = useState(false);
 
   return (
@@ -43,6 +45,12 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-2">
+          <Link
+            to={user && isAdmin ? "/admin" : "/login"}
+            className="hidden items-center gap-1.5 rounded-md border border-border bg-background px-3 py-2 text-xs font-medium text-foreground hover:bg-accent sm:inline-flex"
+          >
+            <Shield className="h-3.5 w-3.5" /> {user && isAdmin ? "Admin" : "Sign in"}
+          </Link>
           <button
             onClick={toggle}
             aria-label="Toggle theme"

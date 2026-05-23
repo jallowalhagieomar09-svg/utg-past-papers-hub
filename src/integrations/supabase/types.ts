@@ -77,6 +77,63 @@ export type Database = {
         }
         Relationships: []
       }
+      paper_uploads: {
+        Row: {
+          course_code: string | null
+          created_at: string
+          department: string | null
+          faculty_slug: string | null
+          id: string
+          mime_type: string | null
+          notes: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          semester: string | null
+          status: string
+          storage_path: string | null
+          title: string
+          uploader_email: string | null
+          uploader_name: string | null
+          year: number | null
+        }
+        Insert: {
+          course_code?: string | null
+          created_at?: string
+          department?: string | null
+          faculty_slug?: string | null
+          id?: string
+          mime_type?: string | null
+          notes?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          semester?: string | null
+          status?: string
+          storage_path?: string | null
+          title: string
+          uploader_email?: string | null
+          uploader_name?: string | null
+          year?: number | null
+        }
+        Update: {
+          course_code?: string | null
+          created_at?: string
+          department?: string | null
+          faculty_slug?: string | null
+          id?: string
+          mime_type?: string | null
+          notes?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          semester?: string | null
+          status?: string
+          storage_path?: string | null
+          title?: string
+          uploader_email?: string | null
+          uploader_name?: string | null
+          year?: number | null
+        }
+        Relationships: []
+      }
       papers: {
         Row: {
           added_at: string
@@ -84,12 +141,13 @@ export type Database = {
           department: string | null
           download_link: string | null
           downloads: number
-          drive_file_id: string
+          drive_file_id: string | null
           faculty_slug: string | null
           id: string
           mime_type: string | null
           semester: string | null
           size_bytes: number | null
+          storage_path: string | null
           title: string
           updated_at: string
           web_view_link: string | null
@@ -101,12 +159,13 @@ export type Database = {
           department?: string | null
           download_link?: string | null
           downloads?: number
-          drive_file_id: string
+          drive_file_id?: string | null
           faculty_slug?: string | null
           id?: string
           mime_type?: string | null
           semester?: string | null
           size_bytes?: number | null
+          storage_path?: string | null
           title: string
           updated_at?: string
           web_view_link?: string | null
@@ -118,16 +177,62 @@ export type Database = {
           department?: string | null
           download_link?: string | null
           downloads?: number
-          drive_file_id?: string
+          drive_file_id?: string | null
           faculty_slug?: string | null
           id?: string
           mime_type?: string | null
           semester?: string | null
           size_bytes?: number | null
+          storage_path?: string | null
           title?: string
           updated_at?: string
           web_view_link?: string | null
           year?: number | null
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          display_name: string | null
+          email: string | null
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          display_name?: string | null
+          email?: string | null
+          id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          display_name?: string | null
+          email?: string | null
+          id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
         }
         Relationships: []
       }
@@ -136,10 +241,16 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -266,6 +377,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin"],
+    },
   },
 } as const

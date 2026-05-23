@@ -1,7 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { Search, Upload, MessageSquare, Sparkles, TrendingUp, Clock, ArrowRight } from "lucide-react";
-import { useMemo, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useEffect, useMemo, useState } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { FACULTIES } from "@/lib/papers-data";
 import { listPapers } from "@/lib/papers.functions";
@@ -23,8 +23,24 @@ function Home() {
   const navigate = useNavigate();
   const [q, setQ] = useState("");
   const fetchPapers = useServerFn(listPapers);
+  const queryClient = useQueryClient();
   const { data } = useQuery({ queryKey: ["papers"], queryFn: () => fetchPapers() });
   const papers = data?.papers ?? [];
+
+  // Auto-sync new Drive uploads (fire-and-forget, server throttles to once per 5 min)
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/public/sync-drive")
+      .then((r) => r.json())
+      .then((res) => {
+        if (!cancelled && res && !res.skipped && (res.inserted ?? 0) > 0) {
+          queryClient.invalidateQueries({ queryKey: ["papers"] });
+        }
+      })
+      .catch(() => {});
+    return () => { cancelled = true; };
+  }, [queryClient]);
+
 
   const suggestions = useMemo(() => {
     if (q.trim().length < 2) return [];

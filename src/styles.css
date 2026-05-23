@@ -39,10 +39,10 @@
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
 
   --shadow-soft: 0 1px 2px oklch(0 0 0 / 0.04), 0 4px 16px oklch(0 0 0 / 0.04);
-  --shadow-card: 0 1px 3px oklch(0 0 0 / 0.06), 0 8px 24px -8px oklch(0.2 0.05 250 / 0.12);
-  --shadow-elegant: 0 20px 50px -20px oklch(0.25 0.08 255 / 0.35);
+  --shadow-card: 0 1px 3px oklch(0 0 0 / 0.06), 0 8px 24px -8px oklch(0.55 0.14 230 / 0.18);
+  --shadow-elegant: 0 20px 50px -20px oklch(0.55 0.14 230 / 0.4);
 
-  --gradient-hero: linear-gradient(135deg, oklch(0.22 0.08 260) 0%, oklch(0.32 0.1 265) 60%, oklch(0.42 0.12 270) 100%);
+  --gradient-hero: linear-gradient(135deg, oklch(0.45 0.13 230) 0%, oklch(0.6 0.15 225) 60%, oklch(0.72 0.13 220) 100%);
   --gradient-gold: linear-gradient(135deg, oklch(0.78 0.13 75) 0%, oklch(0.86 0.15 80) 100%);
 
   --transition-smooth: cubic-bezier(0.22, 1, 0.36, 1);
@@ -51,27 +51,27 @@
 :root {
   --radius: 0.75rem;
 
-  --background: oklch(0.99 0.005 250);
-  --foreground: oklch(0.18 0.03 260);
+  --background: oklch(0.99 0.005 230);
+  --foreground: oklch(0.2 0.04 235);
 
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.18 0.03 260);
+  --card-foreground: oklch(0.2 0.04 235);
 
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.18 0.03 260);
+  --popover-foreground: oklch(0.2 0.04 235);
 
-  --primary: oklch(0.28 0.08 260);
-  --primary-foreground: oklch(0.98 0.005 250);
-  --primary-glow: oklch(0.42 0.12 268);
+  --primary: oklch(0.62 0.15 228);
+  --primary-foreground: oklch(0.99 0.005 230);
+  --primary-glow: oklch(0.74 0.14 222);
 
-  --secondary: oklch(0.96 0.01 250);
-  --secondary-foreground: oklch(0.22 0.05 260);
+  --secondary: oklch(0.96 0.02 225);
+  --secondary-foreground: oklch(0.25 0.06 232);
 
-  --muted: oklch(0.96 0.008 250);
-  --muted-foreground: oklch(0.5 0.02 258);
+  --muted: oklch(0.96 0.015 225);
+  --muted-foreground: oklch(0.5 0.03 232);
 
-  --accent: oklch(0.95 0.02 255);
-  --accent-foreground: oklch(0.25 0.06 260);
+  --accent: oklch(0.94 0.04 225);
+  --accent-foreground: oklch(0.28 0.08 230);
 
   --gold: oklch(0.78 0.13 75);
   --gold-foreground: oklch(0.2 0.05 60);
@@ -79,33 +79,34 @@
   --destructive: oklch(0.6 0.22 27);
   --destructive-foreground: oklch(0.99 0 0);
 
-  --border: oklch(0.92 0.01 250);
-  --input: oklch(0.92 0.01 250);
-  --ring: oklch(0.42 0.12 268);
+  --border: oklch(0.91 0.02 225);
+  --input: oklch(0.91 0.02 225);
+  --ring: oklch(0.62 0.15 228);
 }
 
+
 .dark {
-  --background: oklch(0.14 0.02 260);
-  --foreground: oklch(0.96 0.01 250);
+  --background: oklch(0.16 0.03 232);
+  --foreground: oklch(0.96 0.01 225);
 
-  --card: oklch(0.19 0.03 262);
-  --card-foreground: oklch(0.96 0.01 250);
+  --card: oklch(0.21 0.04 234);
+  --card-foreground: oklch(0.96 0.01 225);
 
-  --popover: oklch(0.19 0.03 262);
-  --popover-foreground: oklch(0.96 0.01 250);
+  --popover: oklch(0.21 0.04 234);
+  --popover-foreground: oklch(0.96 0.01 225);
 
-  --primary: oklch(0.7 0.14 268);
-  --primary-foreground: oklch(0.14 0.02 260);
-  --primary-glow: oklch(0.78 0.13 270);
+  --primary: oklch(0.72 0.14 225);
+  --primary-foreground: oklch(0.14 0.03 232);
+  --primary-glow: oklch(0.8 0.13 222);
 
-  --secondary: oklch(0.24 0.04 262);
-  --secondary-foreground: oklch(0.96 0.01 250);
+  --secondary: oklch(0.26 0.05 234);
+  --secondary-foreground: oklch(0.96 0.01 225);
 
-  --muted: oklch(0.22 0.03 262);
-  --muted-foreground: oklch(0.7 0.02 258);
+  --muted: oklch(0.24 0.04 234);
+  --muted-foreground: oklch(0.72 0.03 228);
 
-  --accent: oklch(0.26 0.05 262);
-  --accent-foreground: oklch(0.96 0.01 250);
+  --accent: oklch(0.28 0.06 232);
+  --accent-foreground: oklch(0.96 0.01 225);
 
   --gold: oklch(0.82 0.14 78);
   --gold-foreground: oklch(0.16 0.04 60);
@@ -113,9 +114,9 @@
   --destructive: oklch(0.65 0.22 27);
   --destructive-foreground: oklch(0.99 0 0);
 
-  --border: oklch(0.28 0.02 262);
-  --input: oklch(0.28 0.02 262);
-  --ring: oklch(0.7 0.14 268);
+  --border: oklch(0.3 0.03 234);
+  --input: oklch(0.3 0.03 234);
+  --ring: oklch(0.72 0.14 225);
 }
 
 @layer base {

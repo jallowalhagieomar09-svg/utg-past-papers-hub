@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import { Mail, Facebook, Twitter, Instagram, GraduationCap } from "lucide-react";
+import { Mail, Facebook, Twitter, Instagram } from "lucide-react";
+import logo from "@/assets/utg-logo.jpg";
 
 export function SiteFooter() {
   return (
@@ -8,8 +9,8 @@ export function SiteFooter() {
         <div className="grid gap-10 md:grid-cols-4">
           <div className="md:col-span-2">
             <div className="flex items-center gap-2">
-              <span className="grid h-9 w-9 place-items-center rounded-lg bg-primary text-primary-foreground">
-                <GraduationCap className="h-5 w-5" />
+              <span className="grid h-10 w-10 place-items-center overflow-hidden rounded-lg bg-white ring-1 ring-border">
+                <img src={logo} alt="UTG Student Union" className="h-9 w-9 object-contain" />
               </span>
               <div className="font-serif text-lg">UTG Past Papers Hub</div>
             </div>

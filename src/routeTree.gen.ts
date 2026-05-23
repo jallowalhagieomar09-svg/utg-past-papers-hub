@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as UploadRouteImport } from './routes/upload'
+import { Route as TipsRouteImport } from './routes/tips'
 import { Route as RequestRouteImport } from './routes/request'
 import { Route as PapersRouteImport } from './routes/papers'
 import { Route as IndexRouteImport } from './routes/index'
@@ -17,6 +18,11 @@ import { Route as IndexRouteImport } from './routes/index'
 const UploadRoute = UploadRouteImport.update({
   id: '/upload',
   path: '/upload',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TipsRoute = TipsRouteImport.update({
+  id: '/tips',
+  path: '/tips',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RequestRoute = RequestRouteImport.update({
@@ -39,12 +45,14 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/papers': typeof PapersRoute
   '/request': typeof RequestRoute
+  '/tips': typeof TipsRoute
   '/upload': typeof UploadRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/papers': typeof PapersRoute
   '/request': typeof RequestRoute
+  '/tips': typeof TipsRoute
   '/upload': typeof UploadRoute
 }
 export interface FileRoutesById {
@@ -52,20 +60,22 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/papers': typeof PapersRoute
   '/request': typeof RequestRoute
+  '/tips': typeof TipsRoute
   '/upload': typeof UploadRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/papers' | '/request' | '/upload'
+  fullPaths: '/' | '/papers' | '/request' | '/tips' | '/upload'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/papers' | '/request' | '/upload'
-  id: '__root__' | '/' | '/papers' | '/request' | '/upload'
+  to: '/' | '/papers' | '/request' | '/tips' | '/upload'
+  id: '__root__' | '/' | '/papers' | '/request' | '/tips' | '/upload'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PapersRoute: typeof PapersRoute
   RequestRoute: typeof RequestRoute
+  TipsRoute: typeof TipsRoute
   UploadRoute: typeof UploadRoute
 }
 
@@ -76,6 +86,13 @@ declare module '@tanstack/react-router' {
       path: '/upload'
       fullPath: '/upload'
       preLoaderRoute: typeof UploadRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tips': {
+      id: '/tips'
+      path: '/tips'
+      fullPath: '/tips'
+      preLoaderRoute: typeof TipsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/request': {
@@ -106,6 +123,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PapersRoute: PapersRoute,
   RequestRoute: RequestRoute,
+  TipsRoute: TipsRoute,
   UploadRoute: UploadRoute,
 }
 export const routeTree = rootRouteImport

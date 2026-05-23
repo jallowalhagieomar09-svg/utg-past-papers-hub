@@ -122,7 +122,7 @@ export const PAPERS: Paper[] = [
   { id: "p13", code: "AGR110", title: "Introduction to Agriculture", faculty: "agriculture", department: "Agriculture", semester: "First", year: 2024, downloads: 280, addedAt: "2025-01-20", fileUrl: "#" },
   { id: "p14", code: "ENV205", title: "Environmental Impact Assessment", faculty: "agriculture", department: "Environmental Sciences", semester: "Second", year: 2023, downloads: 340, addedAt: "2024-12-02", fileUrl: "#" },
   { id: "p15", code: "MED201", title: "Human Anatomy I", faculty: "medicine", department: "Medicine (MB ChB)", semester: "First", year: 2024, downloads: 1820, addedAt: "2025-02-10", fileUrl: "#" },
-  { id: "p16", code: "NUR110", title: "Foundations of Nursing", faculty: "medicine", department: "Nursing & Reproductive Health", forced: undefined as never, } as Paper,
+  { id: "p16", code: "NUR110", title: "Foundations of Nursing", faculty: "medicine", department: "Nursing & Reproductive Health", semester: "First", year: 2024, downloads: 720, addedAt: "2025-01-30", fileUrl: "#" },
   { id: "p17", code: "ARC101", title: "Architectural Design Studio I", faculty: "engineering", department: "Architecture", semester: "First", year: 2024, downloads: 260, addedAt: "2025-03-08", fileUrl: "#" },
   { id: "p18", code: "PAD210", title: "Public Sector Management", faculty: "business", department: "Public Administration", semester: "Second", year: 2024, downloads: 410, addedAt: "2025-04-12", fileUrl: "#" },
 ];

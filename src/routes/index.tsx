@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { FACULTIES, PAPERS } from "@/lib/papers-data";
 import { FacultyCard } from "@/components/faculty-card";
 import { PaperCard } from "@/components/paper-card";
+import campusBg from "@/assets/utg-campus.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -48,7 +49,13 @@ function Home() {
     <>
       {/* HERO */}
       <section className="relative overflow-hidden bg-hero text-white">
-        <div className="absolute inset-0 -z-0 opacity-30 [background-image:radial-gradient(circle_at_1px_1px,white_1px,transparent_0)] [background-size:24px_24px]" />
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${campusBg})` }}
+          aria-hidden
+        />
+        <div className="absolute inset-0 bg-hero opacity-85" aria-hidden />
+        <div className="absolute inset-0 opacity-20 [background-image:radial-gradient(circle_at_1px_1px,white_1px,transparent_0)] [background-size:24px_24px]" aria-hidden />
         <div className="container relative mx-auto max-w-5xl px-4 py-20 text-center md:py-28">
           <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3 py-1 text-xs text-white backdrop-blur animate-fade-in">
             <Sparkles className="h-3.5 w-3.5" />

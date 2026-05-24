@@ -64,7 +64,7 @@ function AdminPage() {
         </button>
       </div>
 
-      <div className="mt-6 inline-flex rounded-lg border border-border bg-card p-1">
+      <div className="mt-6 inline-flex rounded-xl border border-white/20 bg-white/10 p-1.5 backdrop-blur-xl shadow-elegant dark:border-white/10 dark:bg-white/5">
         <TabBtn active={tab === "pending"} onClick={() => setTab("pending")} icon={<Inbox className="h-4 w-4" />}>
           Pending uploads
         </TabBtn>
@@ -84,7 +84,7 @@ function TabBtn({ active, onClick, icon, children }: any) {
   return (
     <button
       onClick={onClick}
-      className={`inline-flex items-center gap-2 rounded-md px-4 py-2 text-sm font-medium transition-colors ${active ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"}`}
+      className={`inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-300 ${active ? "bg-white/25 text-white shadow-sm backdrop-blur-md dark:bg-white/20" : "text-white/80 hover:bg-white/15 hover:text-white dark:text-white/70 dark:hover:bg-white/10"}`}
     >
       {icon}{children}
     </button>

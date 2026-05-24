@@ -82,6 +82,13 @@ export function SiteHeader() {
                 {n.label}
               </Link>
             ))}
+            <Link
+              to={user && isAdmin ? "/admin" : "/login"}
+              onClick={() => setOpen(false)}
+              className="mt-1 inline-flex items-center gap-1.5 rounded-md border border-border bg-background px-3 py-2.5 text-sm font-medium text-foreground hover:bg-accent"
+            >
+              <Shield className="h-3.5 w-3.5" /> {user && isAdmin ? "Admin" : "Sign in"}
+            </Link>
           </nav>
         </div>
       )}

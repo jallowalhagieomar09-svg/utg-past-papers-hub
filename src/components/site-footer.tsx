@@ -15,8 +15,7 @@ export function SiteFooter() {
               <div className="font-serif text-lg">UTG Past Papers Hub</div>
             </div>
             <p className="mt-4 max-w-md text-sm text-muted-foreground">
-              An academic support initiative by the UTG Student Union — helping students
-              prepare smarter with organized, accessible past examination papers.
+              An academic support initiative by the education and research ministry of the 24th executive council of UTG Student Union — helping students prepare smarter with organized, accessible past examination papers.
             </p>
           </div>
 

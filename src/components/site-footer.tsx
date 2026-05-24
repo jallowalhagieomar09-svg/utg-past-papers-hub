@@ -34,7 +34,8 @@ export function SiteFooter() {
             <h4 className="font-serif text-base">Contact</h4>
             <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
               <li className="flex items-center gap-2">
-                <Mail className="h-4 w-4" /> studentunion@utg.edu.gm
+                <Mail className="h-4 w-4" />
+                <span>studentunion@utg.edu.gm</span>
               </li>
               <li className="flex items-center gap-3 pt-2">
                 <a aria-label="Facebook" href="#" className="hover:text-foreground"><Facebook className="h-4 w-4" /></a>

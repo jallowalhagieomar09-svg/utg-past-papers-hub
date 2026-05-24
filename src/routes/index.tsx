@@ -13,7 +13,7 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "UTG Past Papers Hub — Access Past Papers Easily" },
-      { name: "description", content: "Search, browse and download organized UTG past examination papers by school, course, semester, and year." },
+      { name: "description", content: "An academic support initiative by the education and research ministry of the 24th executive council of UTG Student Union — helping students prepare smarter with organized, accessible past examination papers." },
     ],
   }),
   component: Home,
@@ -82,13 +82,13 @@ function Home() {
         <div className="container relative mx-auto max-w-5xl px-4 py-20 text-center md:py-28">
           <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3 py-1 text-xs text-white backdrop-blur animate-fade-in">
             <Sparkles className="h-3.5 w-3.5" />
-            <span>UTG Student Union · Academic Support</span>
+            <span>24th Executive Council · Education & Research Ministry</span>
           </div>
           <h1 className="mx-auto mt-6 max-w-4xl font-serif text-5xl font-bold leading-[1.05] text-white md:text-7xl animate-fade-up">
             Access Past Papers <span className="italic text-[color:var(--gold)]">Easily</span>
           </h1>
-          <p className="mx-auto mt-4 max-w-xl text-base text-white/95 md:text-lg animate-fade-up [animation-delay:80ms]">
-            Prepare smarter for exams with organized academic resources from every UTG school.
+          <p className="mx-auto mt-4 max-w-2xl text-base text-white/95 md:text-lg animate-fade-up [animation-delay:80ms]">
+            An academic support initiative by the education and research ministry of the 24th executive council of UTG Student Union — helping students prepare smarter with organized, accessible past examination papers.
           </p>
 
           <form onSubmit={submit} className="relative mx-auto mt-8 max-w-2xl animate-fade-up [animation-delay:160ms]">

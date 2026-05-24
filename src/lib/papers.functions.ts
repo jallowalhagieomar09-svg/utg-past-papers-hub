@@ -1,5 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
-import { supabaseAdmin } from "@/integrations/supabase/client.server";
+import { createClient } from "@supabase/supabase-js";
 
 export type DbPaper = {
   id: string;
@@ -14,8 +14,27 @@ export type DbPaper = {
   fileUrl: string;
 };
 
+function getPublicSupabaseClient() {
+  const supabaseUrl = process.env.SUPABASE_URL ?? import.meta.env.VITE_SUPABASE_URL;
+  const publishableKey =
+    process.env.SUPABASE_PUBLISHABLE_KEY ?? import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+
+  if (!supabaseUrl || !publishableKey) {
+    throw new Error("Missing public backend environment variables for papers.");
+  }
+
+  return createClient(supabaseUrl, publishableKey, {
+    auth: {
+      storage: undefined,
+      persistSession: false,
+      autoRefreshToken: false,
+    },
+  });
+}
+
 export const listPapers = createServerFn({ method: "GET" }).handler(async () => {
-  const { data, error } = await supabaseAdmin
+  const supabase = getPublicSupabaseClient();
+  const { data, error } = await supabase
     .from("papers")
     .select("id,drive_file_id,storage_path,title,course_code,faculty_slug,department,year,semester,downloads,added_at")
     .order("added_at", { ascending: false });
@@ -23,7 +42,7 @@ export const listPapers = createServerFn({ method: "GET" }).handler(async () => 
   const papers: DbPaper[] = (data ?? []).map((p) => {
     let fileUrl = "";
     if (p.storage_path) {
-      fileUrl = supabaseAdmin.storage.from("papers").getPublicUrl(p.storage_path).data.publicUrl;
+      fileUrl = supabase.storage.from("papers").getPublicUrl(p.storage_path).data.publicUrl;
     } else if (p.drive_file_id) {
       fileUrl = `/api/public/paper-image/${p.drive_file_id}`;
     }

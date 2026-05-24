@@ -84,7 +84,7 @@ function Home() {
             <Sparkles className="h-3.5 w-3.5" />
             <span>UTG Student Union · Academic Support</span>
           </div>
-          <h1 className="mx-auto mt-6 max-w-3xl font-serif text-4xl leading-[1.05] text-white md:text-6xl animate-fade-up">
+          <h1 className="mx-auto mt-6 max-w-4xl font-serif text-5xl font-bold leading-[1.05] text-white md:text-7xl animate-fade-up">
             Access Past Papers <span className="italic text-[color:var(--gold)]">Easily</span>
           </h1>
           <p className="mx-auto mt-4 max-w-xl text-base text-white/95 md:text-lg animate-fade-up [animation-delay:80ms]">

@@ -57,9 +57,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "UTG Past Papers Hub — Access Past Papers Easily" },
+      { title: "UTGSU Academic Resource Hub — Access Past Papers Easily" },
       { name: "description", content: "An academic support initiative by the education and research ministry of the 24th executive council of UTG Student Union — helping students prepare smarter with organized, accessible past examination papers." },
-      { property: "og:title", content: "UTG Past Papers Hub" },
+      { property: "og:title", content: "UTGSU Academic Resource Hub" },
       { property: "og:description", content: "An academic support initiative by the education and research ministry of the 24th executive council of UTG Student Union — helping students prepare smarter with organized, accessible past examination papers." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },

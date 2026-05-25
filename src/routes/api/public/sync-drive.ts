@@ -82,9 +82,10 @@ async function extractMetadata(fileId: string, mime: string, lovableKey: string,
   return JSON.parse(args);
 }
 
-async function runSync() {
+async function runSync(opts: { force?: boolean; max?: number } = {}) {
   const lovableKey = process.env.LOVABLE_API_KEY!;
   const driveKey = process.env.GOOGLE_DRIVE_API_KEY!;
+  const maxPerRun = Math.min(Math.max(opts.max ?? MAX_PER_RUN, 1), 200);
 
   // Throttle
   const { data: folder } = await supabaseAdmin
@@ -92,7 +93,7 @@ async function runSync() {
     .select("id,last_synced_at")
     .eq("folder_id", FOLDER_ID)
     .maybeSingle();
-  if (folder?.last_synced_at) {
+  if (!opts.force && folder?.last_synced_at) {
     const age = Date.now() - new Date(folder.last_synced_at).getTime();
     if (age < THROTTLE_MS) return { skipped: true, reason: "throttled", ageMs: age };
   }
@@ -103,7 +104,7 @@ async function runSync() {
   const { data: existing } = await supabaseAdmin.from("papers").select("drive_file_id");
   const existingIds = new Set((existing ?? []).map((r) => r.drive_file_id));
 
-  const newFiles = imageFiles.filter((f) => !existingIds.has(f.id)).slice(0, MAX_PER_RUN);
+  const newFiles = imageFiles.filter((f) => !existingIds.has(f.id)).slice(0, maxPerRun);
 
   let inserted = 0;
   const errors: string[] = [];
@@ -149,9 +150,12 @@ async function runSync() {
 export const Route = createFileRoute("/api/public/sync-drive")({
   server: {
     handlers: {
-      GET: async () => {
+      GET: async ({ request }) => {
         try {
-          const result = await runSync();
+          const url = new URL(request.url);
+          const force = url.searchParams.get("force") === "1";
+          const max = url.searchParams.get("max") ? Number(url.searchParams.get("max")) : undefined;
+          const result = await runSync({ force, max });
           return Response.json(result);
         } catch (e: any) {
           return Response.json({ error: e.message }, { status: 500 });

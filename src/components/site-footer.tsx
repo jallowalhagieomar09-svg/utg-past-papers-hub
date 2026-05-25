@@ -12,7 +12,7 @@ export function SiteFooter() {
               <span className="grid h-10 w-10 place-items-center overflow-hidden rounded-lg bg-white ring-1 ring-border">
                 <img src={logo} alt="UTG Student Union" className="h-9 w-9 object-contain" />
               </span>
-              <div className="font-serif text-lg">UTG Past Papers Hub</div>
+              <div className="font-serif text-lg">UTGSU Academic Resource Hub</div>
             </div>
             <p className="mt-4 max-w-md text-sm text-muted-foreground">
               An academic support initiative by the education and research ministry of the 24th executive council of UTG Student Union — helping students prepare smarter with organized, accessible past examination papers.

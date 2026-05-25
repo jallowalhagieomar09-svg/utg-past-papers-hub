@@ -8,7 +8,7 @@ import { toast } from "sonner";
 export const Route = createFileRoute("/upload")({
   head: () => ({
     meta: [
-      { title: "Upload a Past Paper — UTG Past Papers Hub" },
+      { title: "Upload a Past Paper — UTGSU Academic Resource Hub" },
       { name: "description", content: "Help fellow students by uploading missing past examination papers." },
     ],
   }),

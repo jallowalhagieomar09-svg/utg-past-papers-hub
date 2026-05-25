@@ -12,7 +12,7 @@ import campusBg from "@/assets/utg-campus.jpg";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "UTG Past Papers Hub — Access Past Papers Easily" },
+      { title: "UTGSU Academic Resource Hub — Access Past Papers Easily" },
       { name: "description", content: "An academic support initiative by the education and research ministry of the 24th executive council of UTG Student Union — helping students prepare smarter with organized, accessible past examination papers." },
     ],
   }),
@@ -27,17 +27,24 @@ function Home() {
   const { data } = useQuery({ queryKey: ["papers"], queryFn: () => fetchPapers() });
   const papers = data?.papers ?? [];
 
-  // Auto-sync new Drive uploads (fire-and-forget, server throttles to once per 5 min)
+  // Auto-sync new Drive uploads. Loops with force=1 until caught up.
   useEffect(() => {
     let cancelled = false;
-    fetch("/api/public/sync-drive")
-      .then((r) => r.json())
-      .then((res) => {
-        if (!cancelled && res && !res.skipped && (res.inserted ?? 0) > 0) {
-          queryClient.invalidateQueries({ queryKey: ["papers"] });
+    (async () => {
+      for (let i = 0; i < 30 && !cancelled; i++) {
+        try {
+          const res = await fetch("/api/public/sync-drive?force=1&max=50").then((r) => r.json());
+          if (cancelled) return;
+          if (res?.inserted > 0) {
+            queryClient.invalidateQueries({ queryKey: ["papers"] });
+          }
+          // Stop once nothing left to import (or throttled / errored)
+          if (!res || res.skipped || res.error || (res.processedThisRun ?? 0) === 0) break;
+        } catch {
+          break;
         }
-      })
-      .catch(() => {});
+      }
+    })();
     return () => { cancelled = true; };
   }, [queryClient]);
 

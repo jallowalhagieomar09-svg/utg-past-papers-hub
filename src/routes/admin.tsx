@@ -12,7 +12,7 @@ import { Check, X, LogOut, Loader2, Plus, FileText, Inbox } from "lucide-react";
 export const Route = createFileRoute("/admin")({
   head: () => ({
     meta: [
-      { title: "Admin — UTG Past Papers Hub" },
+      { title: "Admin — UTGSU Academic Resource Hub" },
       { name: "robots", content: "noindex" },
     ],
   }),

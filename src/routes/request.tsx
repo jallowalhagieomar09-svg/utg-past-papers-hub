@@ -6,7 +6,7 @@ import { FACULTIES, SEMESTERS, YEARS } from "@/lib/papers-data";
 export const Route = createFileRoute("/request")({
   head: () => ({
     meta: [
-      { title: "Request a Past Paper — UTG Past Papers Hub" },
+      { title: "Request a Past Paper — UTGSU Academic Resource Hub" },
       { name: "description", content: "Can't find the past paper you need? Submit a request and our team will source it." },
     ],
   }),

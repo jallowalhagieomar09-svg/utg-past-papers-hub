@@ -19,7 +19,7 @@ export const Route = createFileRoute("/papers")({
   validateSearch: searchSchema,
   head: () => ({
     meta: [
-      { title: "Browse Past Papers — UTG Past Papers Hub" },
+      { title: "Browse Past Papers — UTGSU Academic Resource Hub" },
       { name: "description", content: "Filter UTG past examination papers by faculty, semester, year, and course code." },
     ],
   }),

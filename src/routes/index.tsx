@@ -12,7 +12,7 @@ import campusBg from "@/assets/utg-campus.jpg";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "UTG Past Papers Hub — Access Past Papers Easily" },
+      { title: "UTGSU Academic Resource Hub — Access Past Papers Easily" },
       { name: "description", content: "An academic support initiative by the education and research ministry of the 24th executive council of UTG Student Union — helping students prepare smarter with organized, accessible past examination papers." },
     ],
   }),

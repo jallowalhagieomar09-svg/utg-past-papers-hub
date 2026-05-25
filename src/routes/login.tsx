@@ -8,8 +8,8 @@ import { LogIn, Loader2 } from "lucide-react";
 export const Route = createFileRoute("/login")({
   head: () => ({
     meta: [
-      { title: "Sign in — UTG Past Papers Hub" },
-      { name: "description", content: "Admin sign-in for the UTG Past Papers Hub." },
+      { title: "Sign in — UTGSU Academic Resource Hub" },
+      { name: "description", content: "Admin sign-in for the UTGSU Academic Resource Hub." },
     ],
   }),
   component: LoginPage,

@@ -26,7 +26,7 @@ export function SiteHeader() {
             <img src={logo} alt="UTG Student Union" className="h-9 w-9 object-contain" />
           </span>
           <div className="leading-tight">
-            <div className="font-serif text-lg text-foreground">UTG Past Papers</div>
+            <div className="font-serif text-lg text-foreground">UTGSU Academic Resource Hub</div>
             <div className="text-[10px] uppercase tracking-widest text-muted-foreground">Hub</div>
           </div>
         </Link>

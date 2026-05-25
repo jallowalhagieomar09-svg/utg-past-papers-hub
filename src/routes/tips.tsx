@@ -4,7 +4,7 @@ import { Clock, BookOpen, Brain, Coffee, ListChecks, Target } from "lucide-react
 export const Route = createFileRoute("/tips")({
   head: () => ({
     meta: [
-      { title: "Exam Prep Tips — UTG Past Papers Hub" },
+      { title: "Exam Prep Tips — UTGSU Academic Resource Hub" },
       { name: "description", content: "Practical, student-tested advice for preparing for university examinations." },
     ],
   }),

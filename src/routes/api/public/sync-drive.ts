@@ -104,7 +104,7 @@ async function runSync(opts: { force?: boolean; max?: number } = {}) {
   const { data: existing } = await supabaseAdmin.from("papers").select("drive_file_id");
   const existingIds = new Set((existing ?? []).map((r) => r.drive_file_id));
 
-  const newFiles = imageFiles.filter((f) => !existingIds.has(f.id)).slice(0, MAX_PER_RUN);
+  const newFiles = imageFiles.filter((f) => !existingIds.has(f.id)).slice(0, maxPerRun);
 
   let inserted = 0;
   const errors: string[] = [];

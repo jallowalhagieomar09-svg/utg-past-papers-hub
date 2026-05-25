@@ -150,9 +150,12 @@ async function runSync(opts: { force?: boolean; max?: number } = {}) {
 export const Route = createFileRoute("/api/public/sync-drive")({
   server: {
     handlers: {
-      GET: async () => {
+      GET: async ({ request }) => {
         try {
-          const result = await runSync();
+          const url = new URL(request.url);
+          const force = url.searchParams.get("force") === "1";
+          const max = url.searchParams.get("max") ? Number(url.searchParams.get("max")) : undefined;
+          const result = await runSync({ force, max });
           return Response.json(result);
         } catch (e: any) {
           return Response.json({ error: e.message }, { status: 500 });

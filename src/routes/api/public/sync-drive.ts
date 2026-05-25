@@ -82,9 +82,10 @@ async function extractMetadata(fileId: string, mime: string, lovableKey: string,
   return JSON.parse(args);
 }
 
-async function runSync() {
+async function runSync(opts: { force?: boolean; max?: number } = {}) {
   const lovableKey = process.env.LOVABLE_API_KEY!;
   const driveKey = process.env.GOOGLE_DRIVE_API_KEY!;
+  const maxPerRun = Math.min(Math.max(opts.max ?? MAX_PER_RUN, 1), 200);
 
   // Throttle
   const { data: folder } = await supabaseAdmin
@@ -92,7 +93,7 @@ async function runSync() {
     .select("id,last_synced_at")
     .eq("folder_id", FOLDER_ID)
     .maybeSingle();
-  if (folder?.last_synced_at) {
+  if (!opts.force && folder?.last_synced_at) {
     const age = Date.now() - new Date(folder.last_synced_at).getTime();
     if (age < THROTTLE_MS) return { skipped: true, reason: "throttled", ageMs: age };
   }

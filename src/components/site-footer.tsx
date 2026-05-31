@@ -1,12 +1,11 @@
 import { Link } from "@tanstack/react-router";
-import { Mail, Facebook, Twitter, Instagram } from "lucide-react";
 import logo from "@/assets/utg-logo.jpg";
 
 export function SiteFooter() {
   return (
     <footer className="mt-24 border-t border-border bg-muted/40">
       <div className="container mx-auto max-w-6xl px-4 py-12">
-        <div className="grid gap-10 md:grid-cols-4">
+        <div className="grid gap-10 md:grid-cols-3">
           <div className="md:col-span-2">
             <div className="flex items-center gap-2">
               <span className="grid h-10 w-10 place-items-center overflow-hidden rounded-lg bg-white ring-1 ring-border">
@@ -26,21 +25,6 @@ export function SiteFooter() {
               <li><Link to="/upload" className="hover:text-foreground">Upload a Paper</Link></li>
               <li><Link to="/request" className="hover:text-foreground">Request a Paper</Link></li>
               <li><Link to="/tips" className="hover:text-foreground">Exam Prep Tips</Link></li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="font-serif text-base">Contact</h4>
-            <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
-              <li className="flex items-center gap-2">
-                <Mail className="h-4 w-4" />
-                <span>studentunion@utg.edu.gm</span>
-              </li>
-              <li className="flex items-center gap-3 pt-2">
-                <a aria-label="Facebook" href="#" className="hover:text-foreground"><Facebook className="h-4 w-4" /></a>
-                <a aria-label="Twitter" href="#" className="hover:text-foreground"><Twitter className="h-4 w-4" /></a>
-                <a aria-label="Instagram" href="#" className="hover:text-foreground"><Instagram className="h-4 w-4" /></a>
-              </li>
             </ul>
           </div>
         </div>

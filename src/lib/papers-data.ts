@@ -85,7 +85,7 @@ export const FACULTIES: Faculty[] = [
   },
   {
     slug: "law",
-    name: "School of Law",
+    name: "Faculty of Law",
     short: "LAW",
     description: "Undergraduate and postgraduate legal studies.",
     departments: ["LLB", "LLM"],

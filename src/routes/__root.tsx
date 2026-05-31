@@ -12,6 +12,7 @@ import {
 import appCss from "../styles.css?url";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { Analytics } from "@vercel/analytics/react";
 
 function NotFoundComponent() {
   return (
@@ -107,6 +108,7 @@ function RootComponent() {
         </main>
         <SiteFooter />
       </div>
+      <Analytics />
     </QueryClientProvider>
   );
 }

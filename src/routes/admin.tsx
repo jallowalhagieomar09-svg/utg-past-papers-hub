@@ -4,10 +4,10 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/use-auth";
-import { listPendingUploads, approveUpload, rejectUpload, addPaperDirect } from "@/lib/admin.functions";
+import { listPendingUploads, approveUpload, rejectUpload, addPaperDirect, listPaperRequests, updateRequestStatus } from "@/lib/admin.functions";
 import { FACULTIES, SEMESTERS, YEARS } from "@/lib/papers-data";
 import { toast } from "sonner";
-import { Check, X, LogOut, Loader2, Plus, FileText, Inbox } from "lucide-react";
+import { Check, X, LogOut, Loader2, Plus, FileText, Inbox, MessageSquare, Mail } from "lucide-react";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
@@ -22,7 +22,7 @@ export const Route = createFileRoute("/admin")({
 function AdminPage() {
   const { user, isAdmin, loading } = useAuth();
   const navigate = useNavigate();
-  const [tab, setTab] = useState<"pending" | "add">("pending");
+  const [tab, setTab] = useState<"pending" | "requests" | "add">("pending");
 
   useEffect(() => {
     if (!loading && !user) navigate({ to: "/login" });
@@ -68,13 +68,16 @@ function AdminPage() {
         <TabBtn active={tab === "pending"} onClick={() => setTab("pending")} icon={<Inbox className="h-4 w-4" />}>
           Pending uploads
         </TabBtn>
+        <TabBtn active={tab === "requests"} onClick={() => setTab("requests")} icon={<MessageSquare className="h-4 w-4" />}>
+          Paper requests
+        </TabBtn>
         <TabBtn active={tab === "add"} onClick={() => setTab("add")} icon={<Plus className="h-4 w-4" />}>
           Add paper
         </TabBtn>
       </div>
 
       <div className="mt-6">
-        {tab === "pending" ? <PendingList /> : <AddPaperForm />}
+        {tab === "pending" ? <PendingList /> : tab === "requests" ? <RequestsList /> : <AddPaperForm />}
       </div>
     </section>
   );
@@ -174,6 +177,92 @@ function PendingList() {
     </div>
   );
 }
+
+function RequestsList() {
+  const queryClient = useQueryClient();
+  const fetchRequests = useServerFn(listPaperRequests);
+  const updateFn = useServerFn(updateRequestStatus);
+  const { data, isLoading } = useQuery({ queryKey: ["paper-requests"], queryFn: () => fetchRequests() });
+
+  const update = useMutation({
+    mutationFn: (vars: { id: string; status: "open" | "fulfilled" | "closed" }) => updateFn({ data: vars }),
+    onSuccess: () => {
+      toast.success("Request updated");
+      queryClient.invalidateQueries({ queryKey: ["paper-requests"] });
+    },
+    onError: (e: any) => toast.error(e.message),
+  });
+
+  if (isLoading) return <p className="text-sm text-muted-foreground">Loading…</p>;
+  const requests = data?.requests ?? [];
+  if (requests.length === 0) {
+    return (
+      <div className="rounded-2xl border border-dashed border-border bg-card p-10 text-center">
+        <MessageSquare className="mx-auto h-8 w-8 text-muted-foreground" />
+        <p className="mt-3 text-sm text-muted-foreground">No paper requests yet.</p>
+      </div>
+    );
+  }
+  return (
+    <div className="grid gap-4">
+      {requests.map((r: any) => (
+        <div key={r.id} className="rounded-2xl border border-border bg-card p-5 shadow-soft">
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div className="min-w-0 flex-1">
+              <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                {r.course_code && <span className="rounded bg-primary/10 px-1.5 py-0.5 font-mono text-primary">{r.course_code}</span>}
+                {r.year ? <span>{r.year}</span> : null}
+                {r.semester ? <span>· {r.semester}</span> : null}
+                {r.faculty_slug ? <span>· {r.faculty_slug}</span> : null}
+                <span className={`ml-1 rounded-full px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide ${r.status === "open" ? "bg-amber-500/15 text-amber-600 dark:text-amber-400" : r.status === "fulfilled" ? "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400" : "bg-muted text-muted-foreground"}`}>
+                  {r.status}
+                </span>
+              </div>
+              <h3 className="mt-1 font-medium text-foreground">{r.title}</h3>
+              {r.contact_email && (
+                <p className="mt-2 inline-flex items-center gap-1.5 text-xs text-muted-foreground">
+                  <Mail className="h-3 w-3" />
+                  <a href={`mailto:${r.contact_email}`} className="hover:text-foreground underline">{r.contact_email}</a>
+                </p>
+              )}
+              {r.notes && <p className="mt-2 rounded-md bg-muted px-3 py-2 text-xs text-muted-foreground">{r.notes}</p>}
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {r.status !== "fulfilled" && (
+                <button
+                  onClick={() => update.mutate({ id: r.id, status: "fulfilled" })}
+                  disabled={update.isPending}
+                  className="inline-flex items-center gap-1.5 rounded-md bg-primary px-3 py-2 text-xs font-medium text-primary-foreground hover:bg-primary/90 disabled:opacity-50"
+                >
+                  <Check className="h-3.5 w-3.5" /> Mark fulfilled
+                </button>
+              )}
+              {r.status !== "closed" && (
+                <button
+                  onClick={() => update.mutate({ id: r.id, status: "closed" })}
+                  disabled={update.isPending}
+                  className="inline-flex items-center gap-1.5 rounded-md border border-border bg-background px-3 py-2 text-xs font-medium text-foreground hover:bg-accent disabled:opacity-50"
+                >
+                  <X className="h-3.5 w-3.5" /> Close
+                </button>
+              )}
+              {r.status !== "open" && (
+                <button
+                  onClick={() => update.mutate({ id: r.id, status: "open" })}
+                  disabled={update.isPending}
+                  className="inline-flex items-center gap-1.5 rounded-md border border-border bg-background px-3 py-2 text-xs font-medium text-foreground hover:bg-accent disabled:opacity-50"
+                >
+                  Reopen
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 
 function AddPaperForm() {
   const queryClient = useQueryClient();

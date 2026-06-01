@@ -68,13 +68,16 @@ function AdminPage() {
         <TabBtn active={tab === "pending"} onClick={() => setTab("pending")} icon={<Inbox className="h-4 w-4" />}>
           Pending uploads
         </TabBtn>
+        <TabBtn active={tab === "requests"} onClick={() => setTab("requests")} icon={<MessageSquare className="h-4 w-4" />}>
+          Paper requests
+        </TabBtn>
         <TabBtn active={tab === "add"} onClick={() => setTab("add")} icon={<Plus className="h-4 w-4" />}>
           Add paper
         </TabBtn>
       </div>
 
       <div className="mt-6">
-        {tab === "pending" ? <PendingList /> : <AddPaperForm />}
+        {tab === "pending" ? <PendingList /> : tab === "requests" ? <RequestsList /> : <AddPaperForm />}
       </div>
     </section>
   );

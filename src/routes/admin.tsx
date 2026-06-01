@@ -22,7 +22,7 @@ export const Route = createFileRoute("/admin")({
 function AdminPage() {
   const { user, isAdmin, loading } = useAuth();
   const navigate = useNavigate();
-  const [tab, setTab] = useState<"pending" | "add">("pending");
+  const [tab, setTab] = useState<"pending" | "requests" | "add">("pending");
 
   useEffect(() => {
     if (!loading && !user) navigate({ to: "/login" });

@@ -15,6 +15,8 @@ export const Route = createFileRoute("/login")({
   component: LoginPage,
 });
 
+const ALLOWED_ADMIN_EMAIL = "jallowalhagieomar09@gmail.com";
+
 function LoginPage() {
   const navigate = useNavigate();
   const [mode, setMode] = useState<"signin" | "signup">("signin");
@@ -30,6 +32,10 @@ function LoginPage() {
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (email.trim().toLowerCase() !== ALLOWED_ADMIN_EMAIL) {
+      toast.error("This email is not authorized for admin access.");
+      return;
+    }
     setLoading(true);
     try {
       if (mode === "signup") {

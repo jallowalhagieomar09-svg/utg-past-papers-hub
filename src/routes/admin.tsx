@@ -4,10 +4,10 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/use-auth";
-import { listPendingUploads, approveUpload, rejectUpload, addPaperDirect } from "@/lib/admin.functions";
+import { listPendingUploads, approveUpload, rejectUpload, addPaperDirect, listPaperRequests, updateRequestStatus } from "@/lib/admin.functions";
 import { FACULTIES, SEMESTERS, YEARS } from "@/lib/papers-data";
 import { toast } from "sonner";
-import { Check, X, LogOut, Loader2, Plus, FileText, Inbox } from "lucide-react";
+import { Check, X, LogOut, Loader2, Plus, FileText, Inbox, MessageSquare, Mail } from "lucide-react";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({

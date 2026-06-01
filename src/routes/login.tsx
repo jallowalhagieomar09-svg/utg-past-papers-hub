@@ -58,20 +58,6 @@ function LoginPage() {
     }
   };
 
-  const signInGoogle = async () => {
-    setLoading(true);
-    const result = await lovable.auth.signInWithOAuth("google", {
-      redirect_uri: window.location.origin + "/admin",
-    });
-    if (result.error) {
-      toast.error(result.error.message ?? "Google sign-in failed");
-      setLoading(false);
-      return;
-    }
-    if (result.redirected) return;
-    navigate({ to: "/admin" });
-  };
-
   return (
     <section className="container mx-auto max-w-md px-4 py-16">
       <div className="rounded-2xl border border-border bg-card p-8 shadow-card">

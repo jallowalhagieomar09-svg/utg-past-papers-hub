@@ -17,6 +17,7 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SchoolsIndexRouteImport } from './routes/schools.index'
+import { Route as SchoolsSlugRouteImport } from './routes/schools.$slug'
 import { Route as ApiPublicSyncDriveRouteImport } from './routes/api/public/sync-drive'
 import { Route as ApiPublicPaperImageFileIdRouteImport } from './routes/api/public/paper-image.$fileId'
 
@@ -60,6 +61,11 @@ const SchoolsIndexRoute = SchoolsIndexRouteImport.update({
   path: '/schools/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SchoolsSlugRoute = SchoolsSlugRouteImport.update({
+  id: '/schools/$slug',
+  path: '/schools/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicSyncDriveRoute = ApiPublicSyncDriveRouteImport.update({
   id: '/api/public/sync-drive',
   path: '/api/public/sync-drive',
@@ -80,6 +86,7 @@ export interface FileRoutesByFullPath {
   '/request': typeof RequestRoute
   '/tips': typeof TipsRoute
   '/upload': typeof UploadRoute
+  '/schools/$slug': typeof SchoolsSlugRoute
   '/schools/': typeof SchoolsIndexRoute
   '/api/public/sync-drive': typeof ApiPublicSyncDriveRoute
   '/api/public/paper-image/$fileId': typeof ApiPublicPaperImageFileIdRoute
@@ -92,6 +99,7 @@ export interface FileRoutesByTo {
   '/request': typeof RequestRoute
   '/tips': typeof TipsRoute
   '/upload': typeof UploadRoute
+  '/schools/$slug': typeof SchoolsSlugRoute
   '/schools': typeof SchoolsIndexRoute
   '/api/public/sync-drive': typeof ApiPublicSyncDriveRoute
   '/api/public/paper-image/$fileId': typeof ApiPublicPaperImageFileIdRoute
@@ -105,6 +113,7 @@ export interface FileRoutesById {
   '/request': typeof RequestRoute
   '/tips': typeof TipsRoute
   '/upload': typeof UploadRoute
+  '/schools/$slug': typeof SchoolsSlugRoute
   '/schools/': typeof SchoolsIndexRoute
   '/api/public/sync-drive': typeof ApiPublicSyncDriveRoute
   '/api/public/paper-image/$fileId': typeof ApiPublicPaperImageFileIdRoute
@@ -119,6 +128,7 @@ export interface FileRouteTypes {
     | '/request'
     | '/tips'
     | '/upload'
+    | '/schools/$slug'
     | '/schools/'
     | '/api/public/sync-drive'
     | '/api/public/paper-image/$fileId'
@@ -131,6 +141,7 @@ export interface FileRouteTypes {
     | '/request'
     | '/tips'
     | '/upload'
+    | '/schools/$slug'
     | '/schools'
     | '/api/public/sync-drive'
     | '/api/public/paper-image/$fileId'
@@ -143,6 +154,7 @@ export interface FileRouteTypes {
     | '/request'
     | '/tips'
     | '/upload'
+    | '/schools/$slug'
     | '/schools/'
     | '/api/public/sync-drive'
     | '/api/public/paper-image/$fileId'
@@ -156,6 +168,7 @@ export interface RootRouteChildren {
   RequestRoute: typeof RequestRoute
   TipsRoute: typeof TipsRoute
   UploadRoute: typeof UploadRoute
+  SchoolsSlugRoute: typeof SchoolsSlugRoute
   SchoolsIndexRoute: typeof SchoolsIndexRoute
   ApiPublicSyncDriveRoute: typeof ApiPublicSyncDriveRoute
   ApiPublicPaperImageFileIdRoute: typeof ApiPublicPaperImageFileIdRoute
@@ -219,6 +232,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SchoolsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/schools/$slug': {
+      id: '/schools/$slug'
+      path: '/schools/$slug'
+      fullPath: '/schools/$slug'
+      preLoaderRoute: typeof SchoolsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/sync-drive': {
       id: '/api/public/sync-drive'
       path: '/api/public/sync-drive'
@@ -244,6 +264,7 @@ const rootRouteChildren: RootRouteChildren = {
   RequestRoute: RequestRoute,
   TipsRoute: TipsRoute,
   UploadRoute: UploadRoute,
+  SchoolsSlugRoute: SchoolsSlugRoute,
   SchoolsIndexRoute: SchoolsIndexRoute,
   ApiPublicSyncDriveRoute: ApiPublicSyncDriveRoute,
   ApiPublicPaperImageFileIdRoute: ApiPublicPaperImageFileIdRoute,

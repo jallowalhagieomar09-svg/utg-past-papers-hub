@@ -89,7 +89,7 @@ function SchoolPage() {
           </div>
           <p className="mt-4 max-w-2xl text-sm text-muted-foreground md:text-base">{faculty.description}</p>
           <div className="mt-4 flex flex-wrap gap-1.5">
-            {faculty.departments.map((d) => (
+            {faculty.departments.map((d: string) => (
               <span key={d} className="rounded-full border border-border bg-background/70 px-2.5 py-1 text-xs text-foreground">
                 {d}
               </span>

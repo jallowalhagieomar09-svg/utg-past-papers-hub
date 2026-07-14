@@ -1,53 +1,40 @@
 import { Link } from "@tanstack/react-router";
-import { ChevronDown, BookOpen } from "lucide-react";
-import { useState } from "react";
+import { GraduationCap, ArrowUpRight } from "lucide-react";
 import type { Faculty } from "@/lib/papers-data";
 
 export function FacultyCard({ faculty }: { faculty: Faculty }) {
-  const [open, setOpen] = useState(false);
   return (
-    <div className={`group relative overflow-hidden rounded-xl border border-border bg-card p-5 shadow-soft transition-all hover:shadow-card`}>
-      <div className={`pointer-events-none absolute inset-0 -z-0 bg-gradient-to-br ${faculty.accent} opacity-60`} />
-      <div className="relative z-10">
+    <Link
+      to="/schools/$slug"
+      params={{ slug: faculty.slug }}
+      className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-card p-6 shadow-soft transition-all hover:-translate-y-0.5 hover:shadow-card"
+    >
+      <div className={`pointer-events-none absolute inset-0 -z-0 bg-gradient-to-br ${faculty.accent} opacity-70`} />
+      <div className="relative z-10 flex h-full flex-col">
         <div className="flex items-start justify-between gap-3">
-          <div className="flex items-center gap-3">
-            <span className="grid h-10 w-10 place-items-center rounded-lg bg-primary/10 text-primary">
-              <BookOpen className="h-5 w-5" />
-            </span>
-            <div>
-              <div className="text-[10px] uppercase tracking-widest text-muted-foreground">{faculty.short}</div>
-              <h3 className="font-serif text-lg leading-tight">{faculty.name}</h3>
-            </div>
-          </div>
+          <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/15">
+            <GraduationCap className="h-5 w-5" />
+          </span>
+          <span className="grid h-8 w-8 place-items-center rounded-full border border-border bg-background/70 text-muted-foreground transition-all group-hover:border-primary group-hover:text-primary">
+            <ArrowUpRight className="h-4 w-4" />
+          </span>
         </div>
-        <p className="mt-3 text-sm text-muted-foreground">{faculty.description}</p>
 
-        <button
-          onClick={() => setOpen((o) => !o)}
-          className="mt-4 inline-flex items-center gap-1.5 text-xs font-medium text-foreground hover:text-primary"
-        >
-          {open ? "Hide" : "View"} departments
-          <ChevronDown className={`h-3.5 w-3.5 transition-transform ${open ? "rotate-180" : ""}`} />
-        </button>
+        <div className="mt-5">
+          <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+            {faculty.short}
+          </div>
+          <h3 className="mt-1.5 font-serif text-lg font-semibold leading-tight text-card-foreground">
+            {faculty.name}
+          </h3>
+          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{faculty.description}</p>
+        </div>
 
-        {open && (
-          <ul className="mt-3 flex flex-wrap gap-1.5 animate-fade-in">
-            {faculty.departments.map((d) => (
-              <li key={d} className="rounded-md border border-border bg-background/60 px-2 py-1 text-xs text-foreground">
-                {d}
-              </li>
-            ))}
-          </ul>
-        )}
-
-        <Link
-          to="/papers"
-          search={{ faculty: faculty.slug }}
-          className="mt-4 inline-flex items-center text-sm font-medium text-primary hover:underline"
-        >
-          Browse papers →
-        </Link>
+        <div className="mt-5 flex items-center gap-1.5 border-t border-border/60 pt-4 text-xs text-muted-foreground">
+          <span className="inline-block h-1.5 w-1.5 rounded-full bg-primary" />
+          {faculty.departments.length} departments
+        </div>
       </div>
-    </div>
+    </Link>
   );
 }

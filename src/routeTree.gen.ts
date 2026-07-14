@@ -14,8 +14,13 @@ import { Route as TipsRouteImport } from './routes/tips'
 import { Route as RequestRouteImport } from './routes/request'
 import { Route as PapersRouteImport } from './routes/papers'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as LeaderboardRouteImport } from './routes/leaderboard'
+import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AdminRouteImport } from './routes/admin'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SchoolsIndexRouteImport } from './routes/schools.index'
+import { Route as SchoolsSlugRouteImport } from './routes/schools.$slug'
 import { Route as ApiPublicSyncDriveRouteImport } from './routes/api/public/sync-drive'
 import { Route as ApiPublicPaperImageFileIdRouteImport } from './routes/api/public/paper-image.$fileId'
 
@@ -44,14 +49,39 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LeaderboardRoute = LeaderboardRouteImport.update({
+  id: '/leaderboard',
+  path: '/leaderboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminRoute = AdminRouteImport.update({
   id: '/admin',
   path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SchoolsIndexRoute = SchoolsIndexRouteImport.update({
+  id: '/schools/',
+  path: '/schools/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SchoolsSlugRoute = SchoolsSlugRouteImport.update({
+  id: '/schools/$slug',
+  path: '/schools/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiPublicSyncDriveRoute = ApiPublicSyncDriveRouteImport.update({
@@ -68,35 +98,50 @@ const ApiPublicPaperImageFileIdRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
+  '/contact': typeof ContactRoute
+  '/leaderboard': typeof LeaderboardRoute
   '/login': typeof LoginRoute
   '/papers': typeof PapersRoute
   '/request': typeof RequestRoute
   '/tips': typeof TipsRoute
   '/upload': typeof UploadRoute
+  '/schools/$slug': typeof SchoolsSlugRoute
+  '/schools/': typeof SchoolsIndexRoute
   '/api/public/sync-drive': typeof ApiPublicSyncDriveRoute
   '/api/public/paper-image/$fileId': typeof ApiPublicPaperImageFileIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
+  '/contact': typeof ContactRoute
+  '/leaderboard': typeof LeaderboardRoute
   '/login': typeof LoginRoute
   '/papers': typeof PapersRoute
   '/request': typeof RequestRoute
   '/tips': typeof TipsRoute
   '/upload': typeof UploadRoute
+  '/schools/$slug': typeof SchoolsSlugRoute
+  '/schools': typeof SchoolsIndexRoute
   '/api/public/sync-drive': typeof ApiPublicSyncDriveRoute
   '/api/public/paper-image/$fileId': typeof ApiPublicPaperImageFileIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
+  '/contact': typeof ContactRoute
+  '/leaderboard': typeof LeaderboardRoute
   '/login': typeof LoginRoute
   '/papers': typeof PapersRoute
   '/request': typeof RequestRoute
   '/tips': typeof TipsRoute
   '/upload': typeof UploadRoute
+  '/schools/$slug': typeof SchoolsSlugRoute
+  '/schools/': typeof SchoolsIndexRoute
   '/api/public/sync-drive': typeof ApiPublicSyncDriveRoute
   '/api/public/paper-image/$fileId': typeof ApiPublicPaperImageFileIdRoute
 }
@@ -104,46 +149,66 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/about'
     | '/admin'
+    | '/contact'
+    | '/leaderboard'
     | '/login'
     | '/papers'
     | '/request'
     | '/tips'
     | '/upload'
+    | '/schools/$slug'
+    | '/schools/'
     | '/api/public/sync-drive'
     | '/api/public/paper-image/$fileId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/about'
     | '/admin'
+    | '/contact'
+    | '/leaderboard'
     | '/login'
     | '/papers'
     | '/request'
     | '/tips'
     | '/upload'
+    | '/schools/$slug'
+    | '/schools'
     | '/api/public/sync-drive'
     | '/api/public/paper-image/$fileId'
   id:
     | '__root__'
     | '/'
+    | '/about'
     | '/admin'
+    | '/contact'
+    | '/leaderboard'
     | '/login'
     | '/papers'
     | '/request'
     | '/tips'
     | '/upload'
+    | '/schools/$slug'
+    | '/schools/'
     | '/api/public/sync-drive'
     | '/api/public/paper-image/$fileId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
   AdminRoute: typeof AdminRoute
+  ContactRoute: typeof ContactRoute
+  LeaderboardRoute: typeof LeaderboardRoute
   LoginRoute: typeof LoginRoute
   PapersRoute: typeof PapersRoute
   RequestRoute: typeof RequestRoute
   TipsRoute: typeof TipsRoute
   UploadRoute: typeof UploadRoute
+  SchoolsSlugRoute: typeof SchoolsSlugRoute
+  SchoolsIndexRoute: typeof SchoolsIndexRoute
   ApiPublicSyncDriveRoute: typeof ApiPublicSyncDriveRoute
   ApiPublicPaperImageFileIdRoute: typeof ApiPublicPaperImageFileIdRoute
 }
@@ -185,6 +250,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/leaderboard': {
+      id: '/leaderboard'
+      path: '/leaderboard'
+      fullPath: '/leaderboard'
+      preLoaderRoute: typeof LeaderboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin': {
       id: '/admin'
       path: '/admin'
@@ -192,11 +271,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/schools/': {
+      id: '/schools/'
+      path: '/schools'
+      fullPath: '/schools/'
+      preLoaderRoute: typeof SchoolsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/schools/$slug': {
+      id: '/schools/$slug'
+      path: '/schools/$slug'
+      fullPath: '/schools/$slug'
+      preLoaderRoute: typeof SchoolsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/public/sync-drive': {
@@ -218,25 +318,20 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
   AdminRoute: AdminRoute,
+  ContactRoute: ContactRoute,
+  LeaderboardRoute: LeaderboardRoute,
   LoginRoute: LoginRoute,
   PapersRoute: PapersRoute,
   RequestRoute: RequestRoute,
   TipsRoute: TipsRoute,
   UploadRoute: UploadRoute,
+  SchoolsSlugRoute: SchoolsSlugRoute,
+  SchoolsIndexRoute: SchoolsIndexRoute,
   ApiPublicSyncDriveRoute: ApiPublicSyncDriveRoute,
   ApiPublicPaperImageFileIdRoute: ApiPublicPaperImageFileIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

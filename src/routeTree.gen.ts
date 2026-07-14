@@ -16,6 +16,7 @@ import { Route as PapersRouteImport } from './routes/papers'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as LeaderboardRouteImport } from './routes/leaderboard'
 import { Route as AdminRouteImport } from './routes/admin'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SchoolsIndexRouteImport } from './routes/schools.index'
 import { Route as SchoolsSlugRouteImport } from './routes/schools.$slug'
@@ -57,6 +58,11 @@ const AdminRoute = AdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -86,6 +92,7 @@ const ApiPublicPaperImageFileIdRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
   '/leaderboard': typeof LeaderboardRoute
   '/login': typeof LoginRoute
@@ -100,6 +107,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
   '/leaderboard': typeof LeaderboardRoute
   '/login': typeof LoginRoute
@@ -115,6 +123,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
   '/leaderboard': typeof LeaderboardRoute
   '/login': typeof LoginRoute
@@ -131,6 +140,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/about'
     | '/admin'
     | '/leaderboard'
     | '/login'
@@ -145,6 +155,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/about'
     | '/admin'
     | '/leaderboard'
     | '/login'
@@ -159,6 +170,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/about'
     | '/admin'
     | '/leaderboard'
     | '/login'
@@ -174,6 +186,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
   AdminRoute: typeof AdminRoute
   LeaderboardRoute: typeof LeaderboardRoute
   LoginRoute: typeof LoginRoute
@@ -238,6 +251,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -278,6 +298,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
   AdminRoute: AdminRoute,
   LeaderboardRoute: LeaderboardRoute,
   LoginRoute: LoginRoute,

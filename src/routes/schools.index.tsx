@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { FACULTIES } from "@/lib/papers-data";
 import { FacultyCard } from "@/components/faculty-card";
 
-export const Route = createFileRoute("/schools")({
+export const Route = createFileRoute("/schools/")({
   head: () => ({
     meta: [
       { title: "Schools — UTGSU Academic Resources Hub" },

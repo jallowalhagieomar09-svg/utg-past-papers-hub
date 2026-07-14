@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { Search, Upload, MessageSquare, Sparkles, ArrowRight, GraduationCap, BookOpen, FileText, Trophy } from "lucide-react";
+import { Search, Upload, MessageSquare, Sparkles, ArrowRight, GraduationCap, FileText, Trophy } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
